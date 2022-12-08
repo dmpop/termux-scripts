@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 if [ ! -x "$(command -v convert)" ] || [ ! -x "$(command -v dialog)" ]; then
-    echo "Install ImageMagick and dialog"
+    echo "Install imagemagick and dialog"
     exit 1
 fi
 

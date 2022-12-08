@@ -1,6 +1,11 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 if [ ! -x "$(command -v exiftool)" ]; then
+    echo "Install exiftool"
+    exit 1
+fi
+
+if [ ! -x "$(command -v exiftool)" ]; then
     echo "Install ExifTool."
     exit 1
 fi
