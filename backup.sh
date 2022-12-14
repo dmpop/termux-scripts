@@ -18,10 +18,10 @@
 # Author: Dmitri Popov, dmpop@tokyoma.de
 # Source code: https://github.com/dmpop/termux-scripts
 
-local_dr="/path/to/source/dir"
-remote_user="foo"
-remote_server="hello.xyz"
+local_dir="/path/to/source/dir"
+remote_user="user"
 remote_passwd="secret"
+remote_server="hello.xyz"
 remote_dir="/path/to/remote/dir"
 
 if [ ! -x "$(command -v rsync)" ] || [ ! -x "$(command -v sshpass)" ]; then
