@@ -23,6 +23,18 @@ if [ ! -x "$(command -v convert)" ] || [ ! -x "$(command -v dialog)" ]; then
     exit 1
 fi
 
+mkdir -p $HOME/storage/dcim/resize
+cd $HOME/storage/dcim/resize
+
+photo=$(mktemp)
+photo_checksum=$(stat -c %Y $photo)
+result=$(date +"%Y%m%d-%H%M%S").jpg
+termux-toast "Choose a JPEG file to resize"
+termux-storage-get $photo
+while [ $(stat -c %Y $photo) -eq $photo_checksum ]; do
+    sleep 1
+done
+
 dialog --erase-on-exit --title "Resize" \
     --form "\n    Specify size and quality" 10 40 2 \
     "  Size (px):" 1 4 "" 1 18 10 10 \
@@ -33,7 +45,8 @@ if [ -s "dialog.tmp" ]; then
     size=$(sed -n 1p dialog.tmp)
     quality=$(sed -n 2p dialog.tmp)
     rm -f dialog.tmp
-    convert "$1" -resize "$size>" -quality "$quality%" "${1%/*}/resized_${1##*/}"
+    convert "$photo" -resize "$size>" -quality "$quality%" "$result"
+    termux-toast "All done!"
 else
     exit 1
 fi
