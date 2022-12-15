@@ -23,8 +23,8 @@ if [ ! -x "$(command -v convert)" ] || [ ! -x "$(command -v dialog)" ]; then
     exit 1
 fi
 
-mkdir -p $HOME/storage/dcim/resize
-cd $HOME/storage/dcim/resize
+mkdir -p $HOME/storage/dcim/Resized
+cd $HOME/storage/dcim/Resized
 
 photo=$(mktemp)
 photo_checksum=$(stat -c %Y $photo)
