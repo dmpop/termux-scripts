@@ -18,21 +18,28 @@
 # Author: Dmitri Popov, dmpop@tokyoma.de
 # Source code: https://github.com/dmpop/termux-scripts
 
-work_dir="storage/dcim/Camera"
-remote_user="foo"
-remote_pass="secret"
-remote_host="hello.xyz"
-remote_path="/var/www/html"
-
-if [ ! -x "$(command -v jhead)" ] || [ ! -x "$(command -v mogrify)" ] \
+if [ ! -x "$(command -v mogrify)" ] \
 || [ ! -x "$(command -v sshpass)" ] || [ ! -x "$(command -v exiftool)" ]; then
     echo "Install jhead, imagemagick, sshpass, exiftool"
     exit 1
 fi
 
-cd $work_dir
-mkdir -p results
-for file in *; do convert $file -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB results/$file; done
-cd results
-jhead -n%Y%m%d-%H%M%S *
-for file in *; do sshpass -p "$remote_pass" scp $file "$remote_user@$remote_server:$remove_path"; done
+remote_user="user"
+remote_passed="secret"
+remote_host="hello.xyz"
+remote_path="/var/www/html"
+
+mkdir -p $HOME/storage/dcim/Upload
+cd $HOME/storage/dcim/Upload
+
+photo=$(mktemp)
+photo_checksum=$(stat -c %Y $photo)
+result=$(date +"%Y%m%d-%H%M%S").jpg
+termux-toast "Choose a JPEG file to upload"
+termux-storage-get $photo
+while [ $(stat -c %Y $photo) -eq $photo_checksum ]; do
+    sleep 1
+done
+
+convert $photo -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB "$result"
+sshpass -p "$remote_passwd" scp $photo "$remote_user@$remote_server:$remove_path"
