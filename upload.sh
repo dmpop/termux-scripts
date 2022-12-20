@@ -19,15 +19,16 @@
 # Source code: https://github.com/dmpop/termux-scripts
 
 if [ ! -x "$(command -v mogrify)" ] \
-|| [ ! -x "$(command -v sshpass)" ] || [ ! -x "$(command -v exiftool)" ]; then
-    echo "Install jhead, imagemagick, sshpass, exiftool"
+|| [ ! -x "$(command -v sshpass)" ]; then
+    echo "Install imagemagick, sshpass"
     exit 1
 fi
 
 remote_user="user"
-remote_passed="secret"
-remote_host="hello.xyz"
+remote_passwd="secret"
+remote_server="hello.xyz"
 remote_path="/var/www/html"
+$quality="85"
 
 mkdir -p $HOME/storage/dcim/Upload
 cd $HOME/storage/dcim/Upload
@@ -41,5 +42,5 @@ while [ $(stat -c %Y $photo) -eq $photo_checksum ]; do
     sleep 1
 done
 
-convert $photo -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB "$result"
+convert $photo -sampling-factor 4:2:0 -strip -quality "$quality%" -interlace JPEG -colorspace RGB "$result"
 sshpass -p "$remote_passwd" scp $photo "$remote_user@$remote_server:$remove_path"
