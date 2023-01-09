@@ -24,7 +24,6 @@ if [ ! -x "$(command -v exiftool)" ]; then
 fi
 
 mkdir -p $HOME/storage/dcim/Clean
-cd $HOME/storage/dcim/Clean
 
 photo=$(mktemp)
 photo_checksum=$(stat -c %Y $photo)
@@ -35,5 +34,6 @@ while [ $(stat -c %Y $photo) -eq $photo_checksum ]; do
     sleep 1
 done
 
-exiftool -all= "$photo" -o "$result"
+exiftool -all= "$photo"
+cp "$photo" $HOME/storage/dcim/Clean/"$result"
 termux-toast "All done!"
