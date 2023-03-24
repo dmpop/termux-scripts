@@ -15,7 +15,7 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
-# Author: Dmitri Popov, dmpop@tokyoma.de
+# Author: Dmitri Popov, dmpop@cameracode.coffee
 # Source code: https://github.com/dmpop/termux-scripts
 
 if [ ! -x "$(command -v exiftool)" ]; then
@@ -28,7 +28,7 @@ mkdir -p $HOME/storage/dcim/Clean
 photo=$(mktemp)
 photo_checksum=$(stat -c %Y $photo)
 result=$(date +"%Y%m%d-%H%M%S").jpg
-termux-toast "Choose a JPEG file to resize"
+termux-toast "Choose a JPEG file"
 termux-storage-get $photo
 while [ $(stat -c %Y $photo) -eq $photo_checksum ]; do
     sleep 1

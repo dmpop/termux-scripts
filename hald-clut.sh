@@ -15,7 +15,7 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
-# Author: Dmitri Popov, dmpop@tokyoma.de
+# Author: Dmitri Popov, dmpop@cameracode.coffee
 # Source code: https://github.com/dmpop/termux-scripts
 
 # Original script: https://github.com/PixlsStuff/Scripts/edit/master/android_filmsim/filmsim.sh

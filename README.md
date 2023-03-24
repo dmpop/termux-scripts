@@ -10,7 +10,7 @@ Please report bugs and issues in the [Issues](https://github.com/dmpop/termux-sc
 
 ## Author
 
-Dmitri Popov [dmpop@tokyoma.de](mailto:dmpop@tokyoma.de)
+Dmitri Popov [dmpop@cameracode.coffee](mailto:dmpop@cameracode.coffee)
 
 ## License
 
