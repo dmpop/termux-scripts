@@ -29,4 +29,4 @@ if [ ! -x "$(command -v rsync)" ] || [ ! -x "$(command -v sshpass)" ]; then
     exit 1
 fi
 
-sshpass -p "$remote_passwd" rsync -avhz --exclude=".*" --delete -P -e "ssh -p 22" "$local_dir/" "$user"@"$remote_server":"$remote_dir"
+sshpass -p "$remote_passwd" rsync -avhz --exclude=".*" --delete -P -e "ssh -p 22" "$local_dir/" "$remote_user"@"$remote_server":"$remote_dir"
