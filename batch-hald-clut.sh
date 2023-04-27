@@ -63,12 +63,12 @@ fi
 results=$HOME/storage/dcim/Results
 if [ -d "$results" ]; then
     rm -rf "$results"
+    mkdir -p "$results"
 fi
 
 img_name=$(basename "$img")
 convert "$img" -resize "800>" "tim-$img_name"
 
-mkdir -p "$results"
 for file in "$haldcluts"/*.png; do
     haldclut_name="${file##*/}"
     echo "Applying ${haldclut_name%.*} Hald CLUT..."
@@ -76,5 +76,4 @@ for file in "$haldcluts"/*.png; do
     convert "$results/${haldclut_name%.*}-$img_name" -gravity South -background Black -pointsize 100 -fill White -font Roboto -splice 0x120 -annotate 0x0 "${haldclut_name%.*}" "$results/${haldclut_name%.*}-$img_name"
 done
 rm "tim-$img_name"
-cd "$results"
 echo "All done! Open $results to see the results."
